@@ -44,7 +44,11 @@ struct Opt {
 
   /// Start the demo at a given time.
   #[structopt(short = "s", long = "start-at", default_value = "0s")]
-  start_at: DurationSpec
+  start_at: DurationSpec,
+
+  /// Store path.
+  #[structopt(long = "store", default_value = "./data")]
+  store_path: PathBuf,
 }
 
 impl Runner {
@@ -62,6 +66,7 @@ impl Runner {
     let width = opt.width.unwrap_or(def_width);
     let height = opt.height.unwrap_or(def_height);
     let fullscreen = opt.fullscreen;
+    let store_path = opt.store_path;
 
     // build the WindowDim
     let win_dim = if fullscreen {
@@ -85,7 +90,7 @@ impl Runner {
         .map_err(|e| runner::Error::cannot_create_window(format!("{}", e)))?;
 
     // create the store
-    let store_opt = StoreOpt::default().set_root("data");
+    let store_opt = StoreOpt::default().set_root(&store_path);
     let mut store: Store<D::Context, Key> =
       Store::new(store_opt)
         .map_err(|e| runner::Error::cannot_create_store(format!("{}", e)))?;
