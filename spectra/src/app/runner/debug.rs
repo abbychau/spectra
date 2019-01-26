@@ -5,10 +5,11 @@ use luminance::framebuffer::Framebuffer;
 use luminance_glfw::surface::{
   Action, GlfwSurface, Key as GlfwKey, Surface, WindowDim, WindowEvent, WindowOpt
 };
+use std::path::PathBuf;
 use structopt::StructOpt;
 use warmy::{Store, StoreOpt};
 
-use crate::app::demo::Demo;
+use crate::app::spec::Spec;
 use crate::app::runner;
 use crate::resource::key::Key;
 use crate::time::{DurationSpec, Monotonic};
@@ -53,7 +54,7 @@ impl Runner {
     def_height: u32,
     context: &mut D::Context
   ) -> Result<(), runner::Error>
-  where D: Demo<Self> {
+  where D: Spec<Self> {
     info!(context, "starting « {} »", title);
 
     // get CLI options

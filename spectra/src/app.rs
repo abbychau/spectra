@@ -1,2 +1,2 @@
-pub mod demo;
 pub mod runner;
+pub mod spec;

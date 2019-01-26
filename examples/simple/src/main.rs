@@ -1,12 +1,12 @@
 #[macro_use] extern crate spectra;
 
-use spectra::app::demo::{Backbuffer, Builder, Demo, Key, Store, Time};
+use spectra::app::spec::{Backbuffer, Builder, Key, Store, Spec, Time};
 use spectra::app::runner::debug::Runner;
 use spectra::logger::StdoutLogger;
 
 struct App;
 
-impl<Runner> Demo<Runner> for App {
+impl<Runner> Spec<Runner> for App {
   type Context = StdoutLogger;
 
   type Error = ();
